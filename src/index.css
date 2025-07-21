@@ -2,41 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* 1990s Arcade Game Design System - Neon colors, pixel aesthetics, retro vibes */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Arcade Dark Theme */
+    --background: 240 10% 8%;
+    --foreground: 180 100% 85%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Neon Accent Colors */
+    --neon-cyan: 180 100% 50%;
+    --neon-pink: 320 100% 65%;
+    --neon-green: 120 100% 50%;
+    --neon-yellow: 60 100% 60%;
+    --neon-purple: 280 100% 70%;
+    --neon-orange: 30 100% 60%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Card and Surface Colors */
+    --card: 240 15% 12%;
+    --card-foreground: 180 100% 85%;
+    --card-glow: 240 20% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Interactive Elements */
+    --primary: 180 100% 50%;
+    --primary-foreground: 240 10% 8%;
+    --primary-glow: 180 100% 60%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 320 100% 65%;
+    --secondary-foreground: 240 10% 8%;
+    --secondary-glow: 320 100% 75%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted and Subtle */
+    --muted: 240 20% 15%;
+    --muted-foreground: 180 40% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 120 100% 50%;
+    --accent-foreground: 240 10% 8%;
+    --accent-glow: 120 100% 60%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Form Elements */
+    --input: 240 20% 15%;
+    --input-border: 180 60% 40%;
+    --input-glow: 180 100% 50%;
+    --input-foreground: 180 100% 85%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders and Effects */
+    --border: 240 30% 20%;
+    --border-glow: 180 100% 50%;
+    --ring: 180 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
+
+    /* Arcade Specific */
+    --scanline: 180 20% 30%;
+    --crt-glow: 180 100% 50%;
+    --pixel-shadow: 240 100% 5%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +120,65 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-orbitron;
+    background-image: 
+      linear-gradient(90deg, hsl(var(--scanline)) 50%, transparent 50%),
+      radial-gradient(ellipse at center, transparent 0%, hsl(var(--background)) 100%);
+    background-size: 4px 4px, 100% 100%;
+    animation: scanlines 0.1s linear infinite;
+  }
+
+  /* Arcade CRT Effect */
+  @keyframes scanlines {
+    0% { background-position: 0 0; }
+    100% { background-position: 4px 0; }
+  }
+
+  /* Neon Glow Effects */
+  .neon-glow {
+    box-shadow: 
+      0 0 5px hsl(var(--primary)),
+      0 0 10px hsl(var(--primary)),
+      0 0 15px hsl(var(--primary)),
+      0 0 20px hsl(var(--primary));
+  }
+
+  .neon-text {
+    text-shadow: 
+      0 0 5px hsl(var(--primary)),
+      0 0 10px hsl(var(--primary)),
+      0 0 15px hsl(var(--primary));
+  }
+
+  .pixel-border {
+    border: 2px solid hsl(var(--border-glow));
+    box-shadow: 
+      inset 0 0 0 2px hsl(var(--card)),
+      0 0 10px hsl(var(--border-glow)),
+      inset 0 0 20px hsl(var(--card-glow));
+  }
+
+  /* Retro Button Effects */
+  .arcade-button {
+    background: linear-gradient(145deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    border: 2px solid hsl(var(--primary-glow));
+    box-shadow: 
+      0 0 20px hsl(var(--primary)),
+      inset 0 2px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+    transform: perspective(100px) rotateX(5deg);
+    transition: all 0.2s ease;
+  }
+
+  .arcade-button:hover {
+    transform: perspective(100px) rotateX(0deg) scale(1.05);
+    box-shadow: 
+      0 0 30px hsl(var(--primary)),
+      inset 0 2px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .arcade-button:active {
+    transform: perspective(100px) rotateX(10deg) scale(0.98);
   }
 }
