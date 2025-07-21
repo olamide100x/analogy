@@ -65,21 +65,20 @@ const AnalogyGenerator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Animated Background Stars */}
-      <div className="absolute inset-0 opacity-20">
-        {[...Array(50)].map((_, i) => (
+    <div className="min-h-screen bg-background">
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute animate-pulse"
+            className="absolute text-xs opacity-50"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              animationDelay: `${Math.random() * 5}s`,
             }}
           >
-            ⭐
+            ✦
           </div>
         ))}
       </div>
@@ -87,22 +86,22 @@ const AnalogyGenerator = () => {
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="text-center mb-8 animate-slide-in">
+        <div className="text-center mb-8 animate-fade-in">
           <img 
             src={arcadeLogo} 
             alt="Analogy Generator" 
-            className="mx-auto mb-6 rounded-lg pixel-border max-w-md"
+            className="mx-auto mb-6 rounded-lg subtle-border max-w-md"
           />
-          <h1 className="text-4xl md:text-6xl font-pixel neon-text mb-4 animate-neon-flicker">
+          <h1 className="text-4xl md:text-6xl font-pixel subtle-text-glow mb-4">
             🧩 What's the Analogy?
           </h1>
           <p className="text-lg md:text-xl font-orbitron text-muted-foreground">
-            Generate clever analogies with retro AI power!
+            Generate clever analogies with AI
           </p>
         </div>
 
         {/* Input Form */}
-        <Card className="max-w-2xl mx-auto pixel-border bg-card/90 backdrop-blur-sm mb-8 animate-zoom-in">
+        <Card className="max-w-2xl mx-auto subtle-border bg-card/95 backdrop-blur-sm mb-8 animate-fade-in">
           <div className="p-6 md:p-8">
             <div className="space-y-6">
               {/* Thing 1 Input */}
@@ -114,16 +113,16 @@ const AnalogyGenerator = () => {
                   value={thing1}
                   onChange={(e) => setThing1(e.target.value)}
                   placeholder="Enter first concept..."
-                  className="pixel-border bg-input text-input-foreground placeholder:text-muted-foreground font-orbitron text-lg p-4"
+                  className="subtle-border bg-input text-input-foreground placeholder:text-muted-foreground font-orbitron text-lg p-4"
                 />
               </div>
 
               {/* VS Divider */}
               <div className="text-center">
-                <div className="inline-flex items-center justify-center px-4 py-2 bg-secondary pixel-border">
-                  <Zap className="text-neon-yellow mr-2" />
-                  <span className="font-pixel text-secondary-foreground">VS</span>
-                  <Zap className="text-neon-yellow ml-2" />
+                <div className="inline-flex items-center justify-center px-4 py-2 bg-secondary subtle-border rounded">
+                  <Zap className="text-neon-yellow mr-2 h-4 w-4" />
+                  <span className="font-pixel text-secondary-foreground text-sm">VS</span>
+                  <Zap className="text-neon-yellow ml-2 h-4 w-4" />
                 </div>
               </div>
 
@@ -136,7 +135,7 @@ const AnalogyGenerator = () => {
                   value={thing2}
                   onChange={(e) => setThing2(e.target.value)}
                   placeholder="Enter second concept..."
-                  className="pixel-border bg-input text-input-foreground placeholder:text-muted-foreground font-orbitron text-lg p-4"
+                  className="subtle-border bg-input text-input-foreground placeholder:text-muted-foreground font-orbitron text-lg p-4"
                 />
               </div>
 
@@ -144,18 +143,18 @@ const AnalogyGenerator = () => {
               <Button
                 onClick={handleGenerate}
                 disabled={isGenerating}
-                className="w-full arcade-button font-pixel text-lg py-6 relative overflow-hidden"
+                className="w-full retro-button font-pixel text-lg py-6 relative"
               >
                 {isGenerating ? (
                   <div className="flex items-center justify-center space-x-2">
-                    <div className="animate-spin rounded-full h-6 w-6 border-2 border-primary-foreground border-t-transparent"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-primary-foreground border-t-transparent"></div>
                     <span>GENERATING...</span>
                   </div>
                 ) : (
                   <div className="flex items-center justify-center space-x-2">
-                    <Sparkles className="h-6 w-6" />
+                    <Sparkles className="h-5 w-5" />
                     <span>GENERATE ANALOGY</span>
-                    <Sparkles className="h-6 w-6" />
+                    <Sparkles className="h-5 w-5" />
                   </div>
                 )}
               </Button>
@@ -165,14 +164,14 @@ const AnalogyGenerator = () => {
 
         {/* Generated Analogy Display */}
         {generatedAnalogy && (
-          <Card className="max-w-4xl mx-auto pixel-border bg-card/90 backdrop-blur-sm animate-glow-pulse mb-8">
+          <Card className="max-w-4xl mx-auto subtle-border bg-card/95 backdrop-blur-sm animate-glow-pulse mb-8">
             <div className="p-6 md:p-8">
               <div className="text-center mb-4">
-                <h3 className="font-pixel text-neon-green text-lg mb-2">
+                <h3 className="font-pixel text-neon-green text-base mb-2">
                   ⚡ ANALOGY GENERATED ⚡
                 </h3>
               </div>
-              <div className="bg-muted/50 pixel-border p-6 rounded">
+              <div className="bg-muted/50 subtle-border p-6 rounded-lg">
                 <p className="font-orbitron text-lg leading-relaxed text-center">
                   {generatedAnalogy}
                 </p>
@@ -183,7 +182,7 @@ const AnalogyGenerator = () => {
                 <Button
                   onClick={shareToTwitter}
                   variant="outline"
-                  className="pixel-border hover:bg-neon-cyan/20"
+                  className="subtle-border hover:subtle-glow hover:bg-neon-cyan/10 transition-all"
                 >
                   <Twitter className="h-4 w-4 mr-2" />
                   <span className="font-pixel text-xs">TWEET</span>
@@ -191,7 +190,7 @@ const AnalogyGenerator = () => {
                 <Button
                   onClick={shareToLinkedIn}
                   variant="outline"
-                  className="pixel-border hover:bg-neon-purple/20"
+                  className="subtle-border hover:subtle-glow hover:bg-neon-purple/10 transition-all"
                 >
                   <Linkedin className="h-4 w-4 mr-2" />
                   <span className="font-pixel text-xs">SHARE</span>
@@ -203,9 +202,9 @@ const AnalogyGenerator = () => {
 
         {/* Email Sharing */}
         {generatedAnalogy && (
-          <Card className="max-w-md mx-auto pixel-border bg-card/90 backdrop-blur-sm">
+          <Card className="max-w-md mx-auto subtle-border bg-card/95 backdrop-blur-sm">
             <div className="p-6">
-              <h4 className="font-pixel text-neon-orange text-center mb-4">
+              <h4 className="font-pixel text-neon-orange text-center mb-4 text-sm">
                 📧 EMAIL RESULT
               </h4>
               <div className="flex space-x-2">
@@ -214,11 +213,11 @@ const AnalogyGenerator = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
-                  className="pixel-border bg-input text-input-foreground font-orbitron"
+                  className="subtle-border bg-input text-input-foreground font-orbitron"
                 />
                 <Button
                   onClick={sendEmail}
-                  className="arcade-button font-pixel px-6"
+                  className="retro-button font-pixel px-6 text-sm"
                 >
                   SEND
                 </Button>
@@ -230,8 +229,8 @@ const AnalogyGenerator = () => {
 
       {/* Footer */}
       <div className="relative z-10 text-center py-8 mt-16">
-        <p className="font-pixel text-xs text-muted-foreground">
-          🎮 POWERED BY RETRO AI TECHNOLOGY 🎮
+        <p className="font-pixel text-xs text-muted-foreground opacity-60">
+          🎮 POWERED BY AI 🎮
         </p>
       </div>
     </div>
