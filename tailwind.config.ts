@@ -19,8 +19,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'orbitron': ['Orbitron', 'sans-serif'],
-				'pixel': ['Press Start 2P', 'monospace'],
+				'serif': ['Playfair Display', 'serif'],
+				'sans': ['Inter', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -52,13 +52,13 @@ export default {
 					foreground: 'hsl(var(--card-foreground))',
 					glow: 'hsl(var(--card-glow))'
 				},
-				neon: {
-					cyan: 'hsl(var(--neon-cyan))',
-					pink: 'hsl(var(--neon-pink))',
-					green: 'hsl(var(--neon-green))',
-					yellow: 'hsl(var(--neon-yellow))',
-					purple: 'hsl(var(--neon-purple))',
-					orange: 'hsl(var(--neon-orange))'
+				vintage: {
+					cream: 'hsl(var(--vintage-cream))',
+					brown: 'hsl(var(--vintage-brown))',
+					sage: 'hsl(var(--vintage-sage))',
+					rose: 'hsl(var(--vintage-rose))',
+					lavender: 'hsl(var(--vintage-lavender))',
+					peach: 'hsl(var(--vintage-peach))'
 				}
 			},
 			borderRadius: {
