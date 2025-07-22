@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { Share2, Twitter, Linkedin, Sparkles, Heart, Mail } from 'lucide-react';
+import { Twitter, Loader2, Copy, Link as LinkIcon } from 'lucide-react';
 import { toast } from 'sonner';
-import vintageHeader from '@/assets/vintage-header.jpg';
 
 const AnalogyGenerator = () => {
   const [thing1, setThing1] = useState('');
   const [thing2, setThing2] = useState('');
   const [generatedAnalogy, setGeneratedAnalogy] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [email, setEmail] = useState('');
+  const [shareUrl, setShareUrl] = useState('');
 
   const handleGenerate = async () => {
     if (!thing1.trim() || !thing2.trim()) {
@@ -32,217 +31,173 @@ const AnalogyGenerator = () => {
       
       const randomAnalogy = analogies[Math.floor(Math.random() * analogies.length)];
       setGeneratedAnalogy(randomAnalogy);
+      
+      // Generate shareable URL with the analogy
+      const encodedAnalogy = encodeURIComponent(randomAnalogy);
+      const url = `${window.location.origin}?analogy=${encodedAnalogy}`;
+      setShareUrl(url);
+      
       setIsGenerating(false);
-      toast.success('Analogy crafted! ✨');
+      toast.success('Analogy generated!');
     }, 2000);
   };
 
   const shareToTwitter = () => {
-    const text = `"${generatedAnalogy}" - Created with the AI Analogy Generator ✨`;
+    const text = `"${generatedAnalogy}" - Generated with AI Analogy Generator`;
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   };
 
-  const shareToLinkedIn = () => {
-    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank');
+  const shareToTikTok = () => {
+    const text = `Check out this clever analogy: "${generatedAnalogy}"`;
+    // TikTok doesn't have a direct share URL, so we'll copy to clipboard
+    navigator.clipboard.writeText(text).then(() => {
+      toast.success('Analogy copied to clipboard for TikTok!');
+    });
   };
 
-  const sendEmail = () => {
-    if (!email.trim()) {
-      toast.error('Please enter your email address!');
-      return;
-    }
-    
-    if (!generatedAnalogy) {
-      toast.error('Generate an analogy first!');
-      return;
-    }
-
-    // Simulate email sending
-    toast.success('Analogy sent to your inbox! 📧');
-    setEmail('');
+  const copyShareUrl = () => {
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      toast.success('Share link copied to clipboard!');
+    });
   };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Vintage Background Pattern */}
-      <div className="absolute inset-0 opacity-30 paper-texture"></div>
-
-      {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-16 max-w-4xl">
         
-        {/* Header Section */}
-        <div className="text-center mb-12">
-          <div className="mb-8">
-            <img 
-              src={vintageHeader} 
-              alt="Analogy Generator" 
-              className="mx-auto rounded-lg magazine-border max-w-md"
-            />
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="mb-4">
+            <span className="text-sm font-medium text-muted-foreground tracking-wider uppercase">
+              unlock
+            </span>
           </div>
-          
-          <h1 className="text-5xl md:text-7xl font-serif font-bold vintage-headline text-foreground mb-4">
-            The Analogy
+          <h1 className="text-4xl md:text-6xl font-light text-foreground mb-6 tracking-tight">
+            the Unexpected.
           </h1>
-          <h2 className="text-3xl md:text-4xl font-serif font-semibold vintage-headline text-vintage-brown mb-6">
-            Generator
-          </h2>
-          
-          <p className="text-lg md:text-xl font-sans text-muted-foreground vintage-subtext max-w-2xl mx-auto leading-relaxed">
-            Discover unexpected connections between any two concepts with the gentle wisdom of artificial intelligence
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+            We are an AI-powered Analogy Generator.
           </p>
-          
-          <div className="flex items-center justify-center mt-6 space-x-2 text-vintage-rose">
-            <Heart className="h-4 w-4 fill-current" />
-            <span className="font-sans text-sm italic">Crafted with care</span>
-            <Heart className="h-4 w-4 fill-current" />
-          </div>
+          <p className="text-sm text-muted-foreground mt-2">
+            (EST. IN 2025)
+          </p>
         </div>
 
-        {/* Input Form */}
-        <Card className="max-w-3xl mx-auto magazine-border bg-card/95 backdrop-blur-sm mb-12">
-          <div className="p-8 md:p-12">
-            <div className="space-y-8">
+        {/* Main Form */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-light text-foreground mb-4">
+              What's the Analogy?
+            </h2>
+            <p className="text-muted-foreground">
+              Enter two ideas — get your analogy instantly.
+            </p>
+          </div>
+
+          <Card className="border border-border bg-card p-8">
+            <div className="space-y-6">
               
-              {/* Thing 1 Input */}
-              <div className="space-y-3">
-                <label className="text-sm font-serif font-semibold text-vintage-brown uppercase tracking-wider">
-                  First Concept
-                </label>
-                <Input
-                  value={thing1}
-                  onChange={(e) => setThing1(e.target.value)}
-                  placeholder="Enter your first idea..."
-                  className="magazine-border bg-input text-input-foreground placeholder:text-muted-foreground font-sans text-lg p-4 h-14"
-                />
-              </div>
-
-              {/* Elegant Divider */}
-              <div className="flex items-center justify-center py-4">
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-vintage-brown to-transparent"></div>
-                <div className="px-6">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-vintage-sage magazine-border">
-                    <span className="font-serif font-bold text-vintage-brown">vs</span>
-                  </div>
+              {/* Input Fields */}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">
+                    Thing 1
+                  </label>
+                  <Input
+                    value={thing1}
+                    onChange={(e) => setThing1(e.target.value)}
+                    placeholder="e.g., Forrest Gump"
+                    className="border-border bg-input h-12"
+                  />
                 </div>
-                <div className="flex-1 h-px bg-gradient-to-r from-vintage-brown via-vintage-brown to-transparent"></div>
-              </div>
-
-              {/* Thing 2 Input */}
-              <div className="space-y-3">
-                <label className="text-sm font-serif font-semibold text-vintage-brown uppercase tracking-wider">
-                  Second Concept
-                </label>
-                <Input
-                  value={thing2}
-                  onChange={(e) => setThing2(e.target.value)}
-                  placeholder="Enter your second idea..."
-                  className="magazine-border bg-input text-input-foreground placeholder:text-muted-foreground font-sans text-lg p-4 h-14"
-                />
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">
+                    Thing 2
+                  </label>
+                  <Input
+                    value={thing2}
+                    onChange={(e) => setThing2(e.target.value)}
+                    placeholder="e.g., SpaceX"
+                    className="border-border bg-input h-12"
+                  />
+                </div>
               </div>
 
               {/* Generate Button */}
-              <div className="pt-4">
-                <Button
-                  onClick={handleGenerate}
-                  disabled={isGenerating}
-                  className="w-full glass-button font-serif text-lg py-6 h-16"
-                >
-                  {isGenerating ? (
-                    <div className="flex items-center justify-center space-x-3">
-                      <div className="animate-spin rounded-full h-5 w-5 border-2 border-primary-foreground border-t-transparent"></div>
-                      <span>Crafting your analogy...</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center space-x-3">
-                      <Sparkles className="h-5 w-5" />
-                      <span>Generate Analogy</span>
-                      <Sparkles className="h-5 w-5" />
-                    </div>
-                  )}
-                </Button>
-              </div>
+              <Button
+                onClick={handleGenerate}
+                disabled={isGenerating}
+                className="w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-medium"
+              >
+                {isGenerating ? (
+                  <div className="flex items-center space-x-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Generating...</span>
+                  </div>
+                ) : (
+                  'Get Analogy'
+                )}
+              </Button>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </div>
 
         {/* Generated Analogy Display */}
         {generatedAnalogy && (
-          <Card className="max-w-4xl mx-auto magazine-border bg-vintage-cream/50 backdrop-blur-sm mb-12">
-            <div className="p-8 md:p-12">
-              <div className="text-center mb-6">
-                <h3 className="font-serif text-2xl font-semibold text-vintage-brown mb-2">
-                  ✨ Your Analogy ✨
-                </h3>
-                <div className="w-24 h-px bg-gradient-to-r from-transparent via-vintage-brown to-transparent mx-auto"></div>
-              </div>
-              
-              <div className="bg-card magazine-border p-8 rounded-lg">
-                <blockquote className="font-serif text-lg md:text-xl leading-relaxed text-center italic text-foreground">
-                  "{generatedAnalogy}"
-                </blockquote>
-              </div>
-              
-              {/* Share Buttons */}
-              <div className="flex flex-wrap justify-center gap-4 mt-8">
-                <Button
-                  onClick={shareToTwitter}
-                  variant="outline"
-                  className="magazine-border hover:bg-vintage-sage/20 transition-all font-sans"
-                >
-                  <Twitter className="h-4 w-4 mr-2" />
-                  Share on Twitter
-                </Button>
-                <Button
-                  onClick={shareToLinkedIn}
-                  variant="outline"
-                  className="magazine-border hover:bg-vintage-lavender/20 transition-all font-sans"
-                >
-                  <Linkedin className="h-4 w-4 mr-2" />
-                  Share on LinkedIn
-                </Button>
-              </div>
+          <Card className="border border-border bg-card p-8 mb-8">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-medium text-foreground mb-4">
+                Your Analogy
+              </h3>
+            </div>
+            
+            <div className="bg-muted p-6 rounded-md mb-6">
+              <p className="text-foreground leading-relaxed text-center">
+                "{generatedAnalogy}"
+              </p>
+            </div>
+            
+            {/* Share Options */}
+            <div className="flex flex-wrap justify-center gap-3">
+              <Button
+                onClick={shareToTwitter}
+                variant="outline"
+                size="sm"
+                className="border-border"
+              >
+                <Twitter className="h-4 w-4 mr-2" />
+                Twitter
+              </Button>
+              <Button
+                onClick={shareToTikTok}
+                variant="outline"
+                size="sm"
+                className="border-border"
+              >
+                <span className="text-sm mr-2">🎵</span>
+                TikTok
+              </Button>
+              <Button
+                onClick={copyShareUrl}
+                variant="outline"
+                size="sm"
+                className="border-border"
+              >
+                <LinkIcon className="h-4 w-4 mr-2" />
+                Copy Link
+              </Button>
             </div>
           </Card>
         )}
 
-        {/* Email Sharing */}
-        {generatedAnalogy && (
-          <Card className="max-w-lg mx-auto magazine-border bg-card/95 backdrop-blur-sm">
-            <div className="p-6">
-              <div className="text-center mb-4">
-                <Mail className="h-6 w-6 mx-auto text-vintage-brown mb-2" />
-                <h4 className="font-serif font-semibold text-vintage-brown">
-                  Email This Analogy
-                </h4>
-              </div>
-              <div className="flex space-x-3">
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  className="magazine-border bg-input text-input-foreground font-sans"
-                />
-                <Button
-                  onClick={sendEmail}
-                  className="glass-button font-serif px-8"
-                >
-                  Send
-                </Button>
-              </div>
-            </div>
-          </Card>
-        )}
-      </div>
-
-      {/* Footer */}
-      <div className="relative z-10 text-center py-12 mt-16">
-        <div className="w-32 h-px bg-gradient-to-r from-transparent via-vintage-brown to-transparent mx-auto mb-4"></div>
-        <p className="font-sans text-xs text-muted-foreground italic">
-          Thoughtfully powered by artificial intelligence
-        </p>
+        {/* Footer */}
+        <div className="text-center pt-16">
+          <div className="w-16 h-px bg-border mx-auto mb-4"></div>
+          <p className="text-xs text-muted-foreground">
+            Powered by artificial intelligence
+          </p>
+        </div>
       </div>
     </div>
   );

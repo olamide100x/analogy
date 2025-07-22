@@ -1,209 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Vintage Y2K Design System - Warm, nostalgic colors with magazine aesthetics */
+:root {
+  /* Base colors - clean, modern palette */
+  --background: 0 0% 98%;
+  --foreground: 0 0% 10%;
+  
+  /* Primary colors */
+  --primary: 0 0% 10%;
+  --primary-foreground: 0 0% 98%;
+  
+  /* Secondary colors */
+  --secondary: 0 0% 95%;
+  --secondary-foreground: 0 0% 10%;
+  
+  /* Muted colors */
+  --muted: 0 0% 92%;
+  --muted-foreground: 0 0% 45%;
+  
+  /* Accent colors */
+  --accent: 250 100% 60%;
+  --accent-foreground: 0 0% 98%;
+  
+  /* Card colors */
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 10%;
+  
+  /* UI elements */
+  --border: 0 0% 90%;
+  --input: 0 0% 100%;
+  --ring: 0 0% 10%;
+  
+  --radius: 6px;
+}
 
-@layer base {
-  :root {
-    /* Vintage Warm Palette */
-    --background: 45 25% 96%;
-    --foreground: 25 15% 25%;
-
-    /* Warm Accent Colors */
-    --vintage-cream: 45 35% 92%;
-    --vintage-brown: 25 25% 45%;
-    --vintage-sage: 95 20% 70%;
-    --vintage-rose: 15 35% 75%;
-    --vintage-lavender: 280 25% 80%;
-    --vintage-peach: 25 45% 85%;
-
-    /* Card and Surface Colors */
-    --card: 45 30% 98%;
-    --card-foreground: 25 15% 25%;
-    --card-shadow: 25 10% 85%;
-
-    /* Interactive Elements */
-    --primary: 25 35% 55%;
-    --primary-foreground: 45 25% 96%;
-    --primary-hover: 25 40% 50%;
-
-    --secondary: 95 25% 75%;
-    --secondary-foreground: 25 15% 25%;
-    --secondary-hover: 95 30% 70%;
-
-    /* Muted and Subtle */
-    --muted: 45 20% 90%;
-    --muted-foreground: 25 15% 55%;
-
-    --accent: 15 35% 75%;
-    --accent-foreground: 25 15% 25%;
-    --accent-hover: 15 40% 70%;
-
-    /* Form Elements */
-    --input: 45 25% 95%;
-    --input-border: 25 20% 75%;
-    --input-foreground: 25 15% 25%;
-
-    /* Borders and Effects */
-    --border: 25 15% 85%;
-    --ring: 25 35% 55%;
-
-    --radius: 0.5rem;
-
-    /* Vintage Effects */
-    --paper-texture: 45 15% 93%;
-    --soft-shadow: 25 10% 80%;
-    --glass-shine: 0 0% 100%;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+.dark {
+  --background: 0 0% 8%;
+  --foreground: 0 0% 98%;
+  
+  --primary: 0 0% 98%;
+  --primary-foreground: 0 0% 8%;
+  
+  --secondary: 0 0% 15%;
+  --secondary-foreground: 0 0% 98%;
+  
+  --muted: 0 0% 18%;
+  --muted-foreground: 0 0% 70%;
+  
+  --accent: 250 100% 60%;
+  --accent-foreground: 0 0% 98%;
+  
+  --card: 0 0% 12%;
+  --card-foreground: 0 0% 98%;
+  
+  --border: 0 0% 20%;
+  --input: 0 0% 15%;
+  --ring: 0 0% 98%;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-background text-foreground font-serif;
-    background-image: 
-      radial-gradient(circle at 25% 25%, hsl(var(--vintage-cream)) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, hsl(var(--vintage-peach)) 0%, transparent 50%),
-      linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--paper-texture)) 100%);
-  }
-
-  /* Vintage Paper Texture */
-  .paper-texture {
-    background-image: 
-      radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-  }
-
-  /* Vintage Magazine Border */
-  .magazine-border {
-    border: 2px solid hsl(var(--border));
-    box-shadow: 
-      inset 0 0 0 1px hsl(var(--card)),
-      0 4px 12px hsl(var(--soft-shadow) / 0.3),
-      0 2px 4px hsl(var(--soft-shadow) / 0.4);
-    position: relative;
-  }
-
-  .magazine-border::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border: 1px solid hsl(var(--vintage-cream));
-    border-radius: inherit;
-    pointer-events: none;
-  }
-
-  /* Y2K Glass Button Effect */
-  .glass-button {
-    background: linear-gradient(135deg, 
-      hsl(var(--primary)) 0%, 
-      hsl(var(--primary-hover)) 100%);
-    border: 1px solid hsl(var(--primary));
-    box-shadow: 
-      0 4px 12px hsl(var(--primary) / 0.3),
-      inset 0 1px 0 hsl(var(--glass-shine) / 0.3),
-      inset 0 -1px 0 rgba(0,0,0,0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .glass-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-      transparent, 
-      hsl(var(--glass-shine) / 0.4), 
-      transparent);
-    transition: left 0.5s ease;
-  }
-
-  .glass-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-      0 8px 24px hsl(var(--primary) / 0.4),
-      inset 0 1px 0 hsl(var(--glass-shine) / 0.4),
-      inset 0 -1px 0 rgba(0,0,0,0.1);
-  }
-
-  .glass-button:hover::before {
-    left: 100%;
-  }
-
-  .glass-button:active {
-    transform: translateY(0);
-  }
-
-  /* Vintage Text Effects */
-  .vintage-headline {
-    text-shadow: 2px 2px 4px hsl(var(--soft-shadow) / 0.3);
-    letter-spacing: -0.02em;
-  }
-
-  .vintage-subtext {
-    text-shadow: 1px 1px 2px hsl(var(--soft-shadow) / 0.2);
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
   }
 }
