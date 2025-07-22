@@ -68,20 +68,9 @@ const AnalogyGenerator = () => {
         
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="mb-4">
-            <span className="text-sm font-medium text-muted-foreground tracking-wider uppercase">
-              unlock
-            </span>
-          </div>
           <h1 className="text-4xl md:text-6xl font-light text-foreground mb-6 tracking-tight">
-            the Unexpected.
+            Analogy Generator
           </h1>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            We are an AI-powered Analogy Generator.
-          </p>
-          <p className="text-sm text-muted-foreground mt-2">
-            (EST. IN 2025)
-          </p>
         </div>
 
         {/* Main Form */}
@@ -91,7 +80,7 @@ const AnalogyGenerator = () => {
               What's the Analogy?
             </h2>
             <p className="text-muted-foreground">
-              Enter two ideas — get your analogy instantly.
+              Get your analogy instantly.
             </p>
           </div>
 
@@ -194,9 +183,6 @@ const AnalogyGenerator = () => {
         {/* Footer */}
         <div className="text-center pt-16">
           <div className="w-16 h-px bg-border mx-auto mb-4"></div>
-          <p className="text-xs text-muted-foreground">
-            Powered by artificial intelligence
-          </p>
         </div>
       </div>
     </div>
