@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Twitter, Loader2, Copy, Link as LinkIcon } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const AnalogyGenerator = () => {
   const [thing1, setThing1] = useState('');
@@ -20,26 +21,33 @@ const AnalogyGenerator = () => {
 
     setIsGenerating(true);
     
-    // Simulate API call - user will need Supabase integration for real OpenAI functionality
-    setTimeout(() => {
-      const analogies = [
-        `Comparing ${thing1} to ${thing2} is like reading a well-worn novel versus discovering a handwritten letter in an antique book - both tell stories, but one feels familiar and comforting while the other holds the thrill of unexpected discovery.`,
-        `${thing1} and ${thing2} are like two photographs from different decades in the same family album - they capture different moments in time, but when you look closely, you can see the same underlying essence threading through both.`,
-        `The relationship between ${thing1} and ${thing2} is like comparing a vintage vinyl record to a modern playlist - one carries the warmth of analog memories and intentional listening, while the other offers endless possibilities at your fingertips.`,
-        `${thing1} versus ${thing2} is like choosing between a handwritten journal and a digital notepad - both preserve your thoughts, but one bears the intimate traces of your hand and heart, while the other promises perfect clarity and infinite space.`
-      ];
-      
-      const randomAnalogy = analogies[Math.floor(Math.random() * analogies.length)];
-      setGeneratedAnalogy(randomAnalogy);
-      
-      // Generate shareable URL with the analogy
-      const encodedAnalogy = encodeURIComponent(randomAnalogy);
-      const url = `${window.location.origin}?analogy=${encodedAnalogy}`;
-      setShareUrl(url);
-      
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-analogy', {
+        body: { thing1: thing1.trim(), thing2: thing2.trim() }
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data?.analogy) {
+        setGeneratedAnalogy(data.analogy);
+        
+        // Generate shareable URL with the analogy
+        const encodedAnalogy = encodeURIComponent(data.analogy);
+        const url = `${window.location.origin}?analogy=${encodedAnalogy}`;
+        setShareUrl(url);
+        
+        toast.success('Analogy generated!');
+      } else {
+        throw new Error('No analogy received');
+      }
+    } catch (error) {
+      console.error('Error generating analogy:', error);
+      toast.error('Failed to generate analogy. Please try again.');
+    } finally {
       setIsGenerating(false);
-      toast.success('Analogy generated!');
-    }, 2000);
+    }
   };
 
   const shareToTwitter = () => {
