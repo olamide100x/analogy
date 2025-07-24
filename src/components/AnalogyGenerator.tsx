@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -51,7 +52,7 @@ const AnalogyGenerator = () => {
   };
 
   const shareToTwitter = () => {
-    const text = window.location.origin;
+    const text = `"${generatedAnalogy}"\n\n${window.location.origin}`;
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   };
