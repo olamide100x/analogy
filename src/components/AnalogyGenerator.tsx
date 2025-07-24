@@ -51,7 +51,7 @@ const AnalogyGenerator = () => {
   };
 
   const shareToTwitter = () => {
-    const text = `"${generatedAnalogy}" - Generated with AI Analogy Generator`;
+    const text = `"${generatedAnalogy}"\n\nGenerate your own witty analogies: ${window.location.origin}`;
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   };
