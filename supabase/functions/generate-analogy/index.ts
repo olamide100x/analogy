@@ -38,7 +38,7 @@ serve(async (req) => {
         messages: [
           {
             role: 'system',
-            content: 'You are a creative analogy generator. Create thoughtful, clever, and illuminating analogies between two concepts. Make the analogy clear, memorable, and insightful. Keep it concise but meaningful.'
+            content: 'Write a short, witty analogy between the two concepts. Keep it under 25 words. Use pop culture references, irony, or wordplay. Be clever enough to go viral on Twitter. Avoid em dashes. Use plain punctuation. Format: "X is like Y because [funny or surprising punchline]."'
           },
           {
             role: 'user',
