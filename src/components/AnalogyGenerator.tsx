@@ -27,11 +27,15 @@ const AnalogyGenerator = () => {
         body: { thing1: thing1.trim(), thing2: thing2.trim() }
       });
 
+      console.log('Response from edge function:', { data, error });
+
       if (error) {
+        console.error('Supabase function error:', error);
         throw error;
       }
 
       if (data?.analogy) {
+        console.log('Generated analogy:', data.analogy);
         setGeneratedAnalogy(data.analogy);
         
         // Generate shareable URL with the analogy
