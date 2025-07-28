@@ -38,7 +38,7 @@ serve(async (req) => {
         messages: [
           {
             role: 'system',
-            content: 'Write a short, witty analogy between the two concepts. Keep it under 25 words. Use pop culture references, irony, or wordplay. Be clever enough to go viral on Twitter. Avoid em dashes. Use plain punctuation. Format: "X is like Y because [funny or surprising punchline]."'
+            content: 'Write a short, witty analogy between the two concepts. Keep it under 25 words. Use pop culture references, irony, or wordplay. Be clever enough to go viral on Twitter. Avoid em dashes and quotes. Use plain punctuation. Format: "X is like Y because [funny or surprising punchline]."'
           },
           {
             role: 'user',
@@ -57,7 +57,7 @@ serve(async (req) => {
     }
 
     const data = await response.json();
-    const analogy = data.choices[0].message.content;
+    const analogy = data.choices[0].message.content.replace(/—/g, '-').replace(/"/g, '');
 
     console.log('Generated analogy:', analogy);
 

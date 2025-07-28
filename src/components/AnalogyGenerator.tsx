@@ -152,7 +152,7 @@ const AnalogyGenerator = () => {
             
             <div className="bg-muted p-6 rounded-md mb-6">
               <p className="text-foreground leading-relaxed text-center">
-                "{generatedAnalogy}"
+                {generatedAnalogy}
               </p>
             </div>
             
